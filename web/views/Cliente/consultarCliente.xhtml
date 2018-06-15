@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+                <center><h1 style="font-family: Algerian;font-size: 20px; color: purple">Lista De Clientes Ingresados</h1></center>
+                <h:form id="formMostrar">
+                    <center><p:dataTable id="dataclientes" paginator="true" var="Cli" value="#{clienteMB.listaClientes}" scrollable="true" 
+                                         paginatorPosition="top" style="font-size: 16px" 
+                                         rendered="#{not empty clienteMB.listaClientes}"
+                                         emptyMessage="No Hay Clientes">
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{Cli.codigocliente}"/>
+                            </p:column>
+                            <p:column headerText="Nombres">
+                                <p:outputLabel value="#{Cli.nombres}"/>
+                            </p:column>
+                            <p:column headerText="Apellidos">
+                                <p:outputLabel value="#{Cli.apellidos}"/>
+                            </p:column>
+                            <p:column headerText="Direccion">
+                                <p:outputLabel value="#{Cli.direccion}"/>
+                            </p:column>                            
+                            <p:column>
+                                <p:commandButton value="Modificar" oncomplete="PF('dlgmodificar').show();"
+                                                 update=":formModificar">
+                                    <f:setPropertyActionListener  target="#{clienteMB.cliente}" value="#{Cli}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Eliminar" oncomplete="PF('dlgeliminar').show();"
+                                                 update=":formEliminar">
+                                    <f:setPropertyActionListener  target="#{clienteMB.cliente}" value="#{Cli}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable></center>
+                    <br/>
+                    <br/>
+                    <center><p:commandButton value="Regresar" action="/views/bienvenido.xhtml"/></center> 
+                </h:form>
+
+                <p:dialog id="dlg" header="Modificar Cliente" showEffect="explode" height="explode" widgetVar="dlgmodificar" 
+                          modal="true"    resizable="false" minWidth="200">
+                    <h:form id="formModificar">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Codigo"/>
+                            <p:inputText value="#{clienteMB.cliente.codigocliente}"/>
+                            <p:outputLabel value="Nombres"/>
+                            <p:inputText value="#{clienteMB.cliente.nombres}"/>
+                            <p:outputLabel value="Apellidos"/>
+                            <p:inputText value="#{clienteMB.cliente.apellidos}"/>
+                            <p:outputLabel value="Direccion"/>
+                            <p:inputText value="#{clienteMB.cliente.direccion}"/>                 
+                        </p:panelGrid>
+                        <center><p:commandButton value="Modificar" update=":formMostrar"
+                                                 actionListener="#{clienteMB.update()}"
+                                                 oncomplete="PF('dlgmodificar').hide();"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgmodificar').hide();"/></center>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dlg2" header="Eliminar Cliente" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlgeliminar" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formEliminar">
+                        <p:outputLabel value="Desea Eliminar El Cliente: "/>
+                        <p:commandButton value="Si" update=":formMostrar"
+                                         actionListener="#{clienteMB.delete()}"
+                                         oncomplete="PF('dlgeliminar').hide();"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="No" oncomplete="PF('dlgeliminar').hide();"/>
+                    </h:form>          
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
