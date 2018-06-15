@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "vendedor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v")
+    @NamedQuery(name = "consultarVendedor", query = "SELECT v FROM Vendedor v")
     , @NamedQuery(name = "Vendedor.findByCodigovendedor", query = "SELECT v FROM Vendedor v WHERE v.codigovendedor = :codigovendedor")
     , @NamedQuery(name = "Vendedor.findByNombres", query = "SELECT v FROM Vendedor v WHERE v.nombres = :nombres")
     , @NamedQuery(name = "Vendedor.findByApellidos", query = "SELECT v FROM Vendedor v WHERE v.apellidos = :apellidos")
@@ -153,7 +153,9 @@ public class Vendedor implements Serializable {
 
     @Override
     public String toString() {
-        return "com.factura.entidades.Vendedor[ codigovendedor=" + codigovendedor + " ]";
+        return "Vendedor{" + "codigovendedor=" + codigovendedor + ", nombres=" + nombres + ", apellidos=" + apellidos + ", dni=" + dni + ", celuldar=" + celuldar + ", direccion=" + direccion + '}';
     }
+
+    
     
 }

@@ -5,20 +5,20 @@
  */
 package com.factura.pruebas;
 
-import com.factura.entidades.Cliente;
-import com.factura.negocio.ClienteBL;
+import com.factura.entidades.Vendedor;
+import com.factura.negocio.IVendedorBL;
+import com.factura.negocio.VendedorBL;
 import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import com.factura.negocio.IClienteBL;
 
 /**
  *
  * @author DUALPC
  */
-public class AppCliente {
+public class AppVendedor {
     
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAFacturaWebPU");
      
@@ -31,9 +31,12 @@ public class AppCliente {
         String nombre = "";
         String apellido = "";
         String direccion = "";
+        String dni = "";
+        String celular = "";
+        
         int op = 0;
-        IClienteBL clienteBL = new ClienteBL();
-        Cliente c = new Cliente();
+        IVendedorBL vendedorBL = new VendedorBL();
+        Vendedor v = new Vendedor();
         do {            
             System.out.println("Menu De Opciones - JPA - Hibernate ");
             System.out.println("1. Grabar");
@@ -45,71 +48,87 @@ public class AppCliente {
             System.out.println("Ingrese La Opcion");
             op = sc.nextInt();
                 if(op == 1){
-                    System.out.println("Datos Personales Del Cliente.....");
+                    System.out.println("Datos Personales Del Vendedor.....");
                     //System.out.println("Ingrese El Codigo Del Cliente");
                     //codigo = sc.nextInt();
                     
-                    System.out.println("Ingrese El Nombre Del Cliente");
+                    System.out.println("Ingrese El Nombre Del Vendedor");
                     nombre = sc.nextLine();
                     nombre = sc.nextLine();
                     
-                    System.out.println("Ingrese El Apellido Del Cliente");
+                    System.out.println("Ingrese El Apellido Del Vendedor");
                     apellido = sc.nextLine();
                     
-                    System.out.println("Ingrese La Direccion Del Cliente");
+                    System.out.println("Ingrese El DNI Del Vendedor");
+                    dni = sc.nextLine();
+                    
+                    System.out.println("Ingrese El Celular Del Vendedor");
+                    celular = sc.nextLine();
+                    
+                    System.out.println("Ingrese La Direccion Del Vendedor");
                     direccion = sc.nextLine();
                   
                     //c.setCodigocliente(codigo);
-                    c.setNombres(nombre);
-                    c.setApellidos(apellido);
-                    c.setDireccion(direccion);
-                    clienteBL.save(c);
+                    v.setNombres(nombre);
+                    v.setApellidos(apellido);
+                    v.setDni(dni);
+                    v.setCeluldar(celular);
+                    v.setDireccion(direccion);
+                    vendedorBL.save(v);
                     System.out.println("Registro Insertado Con Exito....");
                     
                 }else if(op == 2){
-                    System.out.println("Datos Personales Del Cliente.....");
-                    System.out.println("Ingrese El Codigo Del Cliente");
+                    System.out.println("Datos Personales Del Vendedor.....");
+                    System.out.println("Ingrese El Codigo Del Vendedor");
                     codigo = sc.nextInt();
                     
-                    System.out.println("Ingrese El Nombre Del Cliente");
+                    System.out.println("Ingrese El Nombre Del Vendedor");
                     nombre = sc.nextLine();
                     nombre = sc.nextLine();
                     
-                    System.out.println("Ingrese El Apellido Del Cliente");
+                    System.out.println("Ingrese El Apellido Del Vendedor");
                     apellido = sc.nextLine();
                     
-                    System.out.println("Ingrese La Direccion Del Cliente");
+                    System.out.println("Ingrese El DNI Del Vendedor");
+                    dni = sc.nextLine();
+                    
+                    System.out.println("Ingrese El Celular Del Vendedor");
+                    celular = sc.nextLine();
+                    
+                    System.out.println("Ingrese La Direccion Del Vendedor");
                     direccion = sc.nextLine();
                     
                     //em.getTransaction().begin();
-                    c.setCodigocliente(codigo);
-                    c.setNombres(nombre);
-                    c.setApellidos(apellido);
-                    c.setDireccion(direccion);
-                    clienteBL.update(c);
+                    v.setCodigovendedor(codigo);
+                    v.setNombres(nombre);
+                    v.setApellidos(apellido);
+                    v.setDni(dni);
+                    v.setCeluldar(celular);
+                    v.setDireccion(direccion);
+                    vendedorBL.update(v);
                     //em.getTransaction().commit();
                     System.out.println("Registro Actualizado Con Exito....");
                     
                 }else if(op == 3){
-                    System.out.println("Datos Personales Del Cliente.....");
-                    System.out.println("Ingrese El Codigo Del Cliente");
+                    System.out.println("Datos Personales Del Vendedor.....");
+                    System.out.println("Ingrese El Codigo Del Vendedor");
                     codigo = sc.nextInt();
                     
-                    c.setCodigocliente(codigo);
-                    clienteBL.delete(c);
+                    v.setCodigovendedor(codigo);
+                    vendedorBL.delete(v);
                     System.out.println("Registro Eliminado Con Exito....");
                     
                 }else if(op == 4){
-                    for (Cliente c1 : clienteBL.consultarCliente()) {
-                        System.out.println(c1);
+                    for (Vendedor v1 : vendedorBL.consultarVendedor()) {
+                        System.out.println(v1);
                         
                     }
                     
                 }else if(op == 5){
-                    List<Cliente> listaClientes = (List<Cliente>) em.createQuery("FROM Cliente").getResultList();
-                    System.out.println("Hay " + listaClientes.size() + " Clientes En El Sistema");
-                    for (Cliente cli : listaClientes) {
-                        System.out.println(cli.toString());
+                    List<Vendedor> listaVendedores = (List<Vendedor>) em.createQuery("FROM Vendedor").getResultList();
+                    System.out.println("Hay " + listaVendedores.size() + " Vendedores En El Sistema");
+                    for (Vendedor ven : listaVendedores) {
+                        System.out.println(ven.toString());
             
                     }
                 }
@@ -118,5 +137,4 @@ public class AppCliente {
         System.out.println("Saliendo........");
         
     }
-    
 }

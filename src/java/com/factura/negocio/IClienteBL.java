@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author DUALPC
  */
-public interface IClienteLN {
+public interface IClienteBL {
     
     void save(Cliente c);
     void update(Cliente c);

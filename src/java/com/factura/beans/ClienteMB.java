@@ -6,14 +6,14 @@
 package com.factura.beans;
 
 import com.factura.entidades.Cliente;
-import com.factura.negocio.ClienteLN;
-import com.factura.negocio.IClienteLN;
+import com.factura.negocio.ClienteBL;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import com.factura.negocio.IClienteBL;
 
 /**
  *
@@ -25,7 +25,7 @@ public class ClienteMB implements Serializable{
 
     private Cliente cliente = new Cliente();
     private List<Cliente> listaClientes;
-    IClienteLN clienteBL = new ClienteLN();
+    IClienteBL clienteBL = new ClienteBL();
     
     public ClienteMB() {
         cliente = new Cliente();

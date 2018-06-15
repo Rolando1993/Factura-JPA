@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author DUALPC
  */
-public class ClienteLN implements IClienteLN{
+public class ClienteBL implements IClienteBL{
     
     IClienteDao clienteDao = new ClienteDao();
 
