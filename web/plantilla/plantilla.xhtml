@@ -14,9 +14,12 @@
     </h:head>
 
     <h:body>
+        <div id="divGeneral">
 
         <div id="top">
             <ui:insert name="top"></ui:insert>
+            <h1>Sistema De Factura Web</h1>
+            <div id="menuPrincipal">
             <h:form>  
                 <p:menubar>
                     <p:submenu label="Inicio" icon="ui-icon-document">
@@ -46,6 +49,7 @@
                     </p:submenu>
                 </p:menubar>
             </h:form>
+                </div>
         </div>
 
         <div id="content" class="center_content">
@@ -55,7 +59,7 @@
         <div id="bottom">
             <ui:insert name="bottom">&copy; 2018 Factura</ui:insert>
         </div>
-
+</div>
     </h:body>
 
 </html>
