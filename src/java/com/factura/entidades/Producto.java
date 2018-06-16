@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "producto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")
+    @NamedQuery(name = "consultarProducto", query = "SELECT p FROM Producto p")
     , @NamedQuery(name = "Producto.findByCodigoproducto", query = "SELECT p FROM Producto p WHERE p.codigoproducto = :codigoproducto")
     , @NamedQuery(name = "Producto.findByNombre", query = "SELECT p FROM Producto p WHERE p.nombre = :nombre")
     , @NamedQuery(name = "Producto.findByPrecioventa", query = "SELECT p FROM Producto p WHERE p.precioventa = :precioventa")
@@ -145,7 +145,8 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.factura.entidades.Producto[ codigoproducto=" + codigoproducto + " ]";
+        return "Producto{" + "codigoproducto=" + codigoproducto + ", nombre=" + nombre + ", precioventa=" + precioventa + ", stockminimo=" + stockminimo + ", stockactual=" + stockactual + ", codigobarra=" + codigobarra + '}';
     }
+
     
 }

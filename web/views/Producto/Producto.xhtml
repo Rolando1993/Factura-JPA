@@ -1,14 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./../../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                <h1>Datos Del Producto</h1>
+                <center><p:panel header="Registro De Productos">
+                        <h:form>
+                            <p:messages id="msjgral" showDetail="true" autoUpdate="true" closable="true"/>
+                            <center><br/>
+                                <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10"  styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Nombre"/>
+                                    <p:inputText value="#{productoMB.producto.nombre}"/>
+                                    <p:outputLabel value="Precio De Venta"/>
+                                    <p:inputText value="#{productoMB.producto.precioventa}"/>
+                                    <p:outputLabel value="Stock Minimo"/>
+                                    <p:inputText value="#{productoMB.producto.stockminimo}"/>
+                                    <p:outputLabel value="Stock Actual"/>
+                                    <p:inputText value="#{productoMB.producto.stockactual}"/>
+                                    <p:outputLabel value="Codio De Barra"/>
+                                    <p:inputText value="#{productoMB.producto.codigobarra}"/>   
+                                </p:panelGrid>
+                            </center>
+                            <br/>  
+                            <center><p:commandButton value="Grabar Registro" actionListener="#{productoMB.save()}"
+                                                     action="/views/bienvenido.xhtml"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <p:commandButton value="Regresar" action="/views/bienvenido.xhtml"/></center>
+                        </h:form>
+                    </p:panel></center>     
             </ui:define>
 
         </ui:composition>

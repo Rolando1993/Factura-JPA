@@ -1,14 +1,92 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                <h1>Datos Del Producto</h1>
+                <center><h1 style="font-family: Algerian;font-size: 20px; color: purple">Lista De Productos Ingresados</h1></center>
+                <h:form id="formMostrar">
+                    <center><p:dataTable id="dataproductos" paginator="true" var="pro" value="#{productoMB.listaProductos}" scrollable="true" 
+                                         paginatorPosition="top" style="font-size: 16px" 
+                                         rendered="#{not empty productoMB.listaProductos}"
+                                         emptyMessage="No Hay Vendedores">
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{pro.codigoproducto}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <p:outputLabel value="#{pro.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Precio De Venta">
+                                <p:outputLabel value="#{pro.precioventa}"/>
+                            </p:column>
+                            <p:column headerText="Stock Minimo">
+                                <p:outputLabel value="#{pro.stockminimo}"/>
+                            </p:column>
+                            <p:column headerText="Stock Actual">
+                                <p:outputLabel value="#{pro.stockactual}"/>
+                            </p:column>
+                            <p:column headerText="Codigo De Barra">
+                                <p:outputLabel value="#{pro.codigobarra}"/>
+                            </p:column>                            
+                            <p:column>
+                                <p:commandButton value="Modificar" oncomplete="PF('dlgmodificar').show();"
+                                                 update=":formModificar">
+                                    <f:setPropertyActionListener  target="#{productoMB.producto}" value="#{pro}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Eliminar" oncomplete="PF('dlgeliminar').show();"
+                                                 update=":formEliminar">
+                                    <f:setPropertyActionListener  target="#{productoMB.producto}" value="#{pro}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable></center>
+                    <br/>
+                    <br/>
+                    <center><p:commandButton value="Regresar" action="/views/bienvenido.xhtml"/></center> 
+                </h:form>
+
+                <p:dialog id="dlg" header="Modificar Producto" showEffect="explode" height="explode" widgetVar="dlgmodificar" 
+                          modal="true"   resizable="false" minWidth="200">
+                    <h:form id="formModificar">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Codigo"/>
+                            <p:inputText value="#{productoMB.producto.codigoproducto}"/>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{productoMB.producto.nombre}"/>
+                            <p:outputLabel value="Precio De Venta"/>
+                            <p:inputText value="#{productoMB.producto.precioventa}"/>
+                            <p:outputLabel value="Stock Minimo"/>
+                            <p:inputText value="#{productoMB.producto.stockminimo}"/>
+                            <p:outputLabel value="Stock Actual"/>
+                            <p:inputText value="#{productoMB.producto.stockactual}"/>
+                            <p:outputLabel value="Codio De Barra"/>
+                            <p:inputText value="#{productoMB.producto.codigobarra}"/>                 
+                        </p:panelGrid>
+                        <center><p:commandButton value="Modificar" update=":formMostrar"
+                                                 actionListener="#{productoMB.update()}"
+                                                 oncomplete="PF('dlgmodificar').hide();"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgmodificar').hide();"/></center>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog id="dlg2" header="Eliminar Producto" showEffect="explode" hideEffect="bounce"
+                          widgetVar="dlgeliminar" modal="true" resizable="false" minWidth="200">
+                    <h:form id="formEliminar">
+                        <p:outputLabel value="Desea Eliminar El Producto: "/>
+                        <p:commandButton value="Si" update=":formMostrar"
+                                         actionListener="#{productoMB.delete()}"
+                                         oncomplete="PF('dlgeliminar').hide();"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="No" oncomplete="PF('dlgeliminar').hide();"/>
+                    </h:form>          
+                </p:dialog>
             </ui:define>
 
         </ui:composition>
