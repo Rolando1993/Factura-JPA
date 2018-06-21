@@ -6,7 +6,11 @@
 package com.factura.dao;
 
 import com.factura.entidades.Cliente;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import org.hibernate.Session;
+
 
 /**
  *
@@ -18,5 +22,8 @@ public interface IClienteDao {
     void actualizar(Cliente c);
     void eliminar(Cliente c);
     List<Cliente> getListaClientes();
+    public Cliente obtenerClientePorCodigo(EntityManager emf, Integer codCliente)throws Exception;
+    public ArrayList<Cliente> getObtenerClientePorCodigo(Integer codCliente);
+    //public Cliente obtenerClientePorCodigo(Session sesion, Integer codCliente)throws Exception;
     
 }

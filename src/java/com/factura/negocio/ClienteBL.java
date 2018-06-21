@@ -8,7 +8,10 @@ package com.factura.negocio;
 import com.factura.dao.ClienteDao;
 import com.factura.dao.IClienteDao;
 import com.factura.entidades.Cliente;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import org.hibernate.Session;
 
 /**
  *
@@ -37,5 +40,21 @@ public class ClienteBL implements IClienteBL{
     public List<Cliente> consultarCliente() {
         return this.clienteDao.getListaClientes();
     }
+
+    @Override
+    public Cliente obtenerCliente(EntityManager emf, Integer codCliente) throws Exception {
+        return this.clienteDao.obtenerClientePorCodigo(emf, codCliente);
+    }
+
+    @Override
+    public ArrayList<Cliente> obtenerCliente(Integer codCliente) {
+        return this.clienteDao.getObtenerClientePorCodigo(codCliente);
+    }
+
+    /*
+    @Override
+    public Cliente obtenerCliente(Session sesion, Integer codCliente) throws Exception {
+        return this.clienteDao.obtenerClientePorCodigo(sesion, codCliente);
+    }*/
     
 }

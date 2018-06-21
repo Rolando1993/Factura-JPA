@@ -28,11 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "cliente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "consultarCliente", query = "SELECT c FROM Cliente c")
-    , @NamedQuery(name = "Cliente.findByCodigocliente", query = "SELECT c FROM Cliente c WHERE c.codigocliente = :codigocliente")
-    , @NamedQuery(name = "Cliente.findByNombres", query = "SELECT c FROM Cliente c WHERE c.nombres = :nombres")
-    , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos")
-    , @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion")})
+    @NamedQuery(name = "consultarCliente", query = "SELECT c FROM Cliente c")})
+    //, @NamedQuery(name = "obtenerCliente", query = "SELECT c FROM Cliente c WHERE c.codigocliente = :codigocliente")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +46,7 @@ public class Cliente implements Serializable {
     private String direccion;
     @OneToMany(mappedBy = "codigocliente")
     private Collection<Factura> facturaCollection;
+    
 
     public Cliente() {
     }

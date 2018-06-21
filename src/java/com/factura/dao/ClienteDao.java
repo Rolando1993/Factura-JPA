@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.hibernate.Session;
 
 /**
  *
@@ -65,5 +66,41 @@ public class ClienteDao implements IClienteDao{
         em.close();
         return listaCliente;
     }
+
+    @Override
+    public Cliente obtenerClientePorCodigo(EntityManager emf, Integer codCliente) throws Exception {
+        List<Cliente> listaCliente = new ArrayList<>();
+        emf.getTransaction().begin();
+        String hql = "FROM Cliente WHERE codigocliente = :codigocliente";
+        Query q = emf.createQuery(hql);
+        q.setParameter("codigocliente", codCliente);
+        listaCliente = q.getResultList();
+        return (Cliente) listaCliente;
+    }
+
+
+
+    @Override
+    public ArrayList<Cliente> getObtenerClientePorCodigo(Integer codCliente) {
+         ArrayList<Cliente> listaCliente = new ArrayList<>();
+        EntityManager em = EMF.crearEntityManager();
+        em.getTransaction().begin();
+        String hql = "FROM Cliente WHERE codigocliente = :codigocliente";
+        Query q = em.createQuery(hql);
+        q.setParameter("codigocliente", codCliente);
+        listaCliente = (ArrayList<Cliente>) q.getResultList();
+        em.getTransaction().commit();
+        em.close();
+        return listaCliente;
+    }
+
+    /*
+    @Override
+    public Cliente obtenerClientePorCodigo(Session sesion, Integer codCliente) throws Exception {
+        String hql = "FROM Cliente WHERE codigocliente = :codigocliente";
+        Query q = (Query) sesion.createQuery(hql);
+        q.setParameter("codigocliente", codCliente);
+        return (Cliente) q.getResultList();
+    }*/
     
 }

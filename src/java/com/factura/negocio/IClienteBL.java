@@ -6,7 +6,10 @@
 package com.factura.negocio;
 
 import com.factura.entidades.Cliente;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import org.hibernate.Session;
 
 /**
  *
@@ -18,5 +21,8 @@ public interface IClienteBL {
     void update(Cliente c);
     void delete(Cliente c);
     List<Cliente> consultarCliente();
+    public Cliente obtenerCliente(EntityManager emf, Integer codCliente)throws Exception;
+    public ArrayList<Cliente> obtenerCliente(Integer codCliente);
+    //public Cliente obtenerCliente(Session sesion, Integer codCliente)throws Exception;
     
 }

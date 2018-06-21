@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "factura")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f")
+    @NamedQuery(name = "consultarFactura", query = "SELECT f FROM Factura f")
     , @NamedQuery(name = "Factura.findByCodigofactura", query = "SELECT f FROM Factura f WHERE f.codigofactura = :codigofactura")
     , @NamedQuery(name = "Factura.findByNumerofactura", query = "SELECT f FROM Factura f WHERE f.numerofactura = :numerofactura")
     , @NamedQuery(name = "Factura.findByTotalventa", query = "SELECT f FROM Factura f WHERE f.totalventa = :totalventa")
