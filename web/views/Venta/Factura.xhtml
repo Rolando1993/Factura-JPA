@@ -13,13 +13,17 @@
             <ui:define name="content">
                 <h2>Realizar Venta</h2>
                 <h:form id="formFactura">
+                    <p:growl id="mensajeGeneral" showDetail="true" autoUpdate="true" life="3000"/>
                     <p:panel header="-*-*" style="width: 900px; margin: 0 auto; text-align: center;">
                         <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 150px;">
                             <p:layoutUnit id="datosCliente" position="center" style="padding: 5px; text-align: justify;
                                           font-size: 14px; size: 300">
                                 <h:panelGrid id="gridBuscarDatosCliente" columns="5">
                                     <p:outputLabel value="Codigo Cliente" style="font-weight: bold;"/>
-                                    <p:inputText size="12"/>
+                                    <p:inputText id="txtBuscarCliente" value="#{facturaMB.codigoCliente}" size="12">
+                                        <p:ajax event="keyup" listener="#{facturaMB.agregarDatosDelCliente2()}"
+                                                update=":formFactura:gridDatosCliente :formFactura:txtBuscarCliente"/>
+                                    </p:inputText>
                                     <p:commandButton value="..." oncomplete="PF('dialogClientes').show();"
                                                      update=":formFactura:dlgClientes"/>
                                     

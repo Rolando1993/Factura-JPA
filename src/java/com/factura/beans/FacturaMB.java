@@ -15,8 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 
 /**
  *
@@ -25,13 +24,10 @@ import org.hibernate.Transaction;
 @ManagedBean
 @ViewScoped
 public class FacturaMB implements Serializable{
-
-    Session sesion;
-    Transaction transaccion;
+    
     EntityManager em = EMF.crearEntityManager();
     private Cliente cliente = new Cliente();
-    Cliente clienteModels;
-    private String codigoCliente;
+    private Integer codigoCliente;
     IClienteBL clienteBL = new ClienteBL();
     
     public FacturaMB() {
@@ -46,14 +42,17 @@ public class FacturaMB implements Serializable{
         this.cliente = cliente;
     }
 
-    public String getCodigoCliente() {
+    public Integer getCodigoCliente() {
         return codigoCliente;
     }
 
-    public void setCodigoCliente(String codigoCliente) {
+    public void setCodigoCliente(Integer codigoCliente) {
         this.codigoCliente = codigoCliente;
     }
+
+  
     
+    //Metodo Para Agregar Los Clientes Por Medio Del Dialog
     public void agregarDatosDelCliente(Integer codCliente){
         this.em = null;
         try {
@@ -74,8 +73,40 @@ public class FacturaMB implements Serializable{
         }
     }
     
+    //Metodo Para Agregar Los Clientes Por Medio Del Dialog Con Logica De Negocio
     public void agregarCliente(Integer codCliente){
         clienteBL.obtenerCliente(codCliente);
+    }
+    
+    //Metodo Para Agregar Los Clientes Por Medio Del Codigo
+    public void agregarDatosDelCliente2(){
+        this.em = null;
+        try {
+            if(this.codigoCliente == null){
+                return;
+            }
+            this.em = EMF.crearEntityManager();
+            em.getTransaction().begin();
+            this.cliente = clienteBL.obtenerCliente(this.em, this.codigoCliente);
+            if(this.cliente != null){
+                this.codigoCliente = null;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Datos Del Cliente Agregado")); 
+            }else{
+                this.codigoCliente = null;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Correcto", "Cliente No Encontrado"));
+            }
+            em.getTransaction().commit();
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "Datos Del Cliente Agregado"));
+        } catch (Exception e) {
+            if(this.em.getTransaction() != null){
+                System.out.println(e.getMessage());
+                em.getTransaction().rollback();
+            }
+        }finally{
+            if(this.em != null){
+                this.em.close();
+            }
+        }
     }
     
     /*
